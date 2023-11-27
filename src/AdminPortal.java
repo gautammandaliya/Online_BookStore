@@ -276,7 +276,7 @@ public class AdminPortal {
         Scanner sc = new Scanner(System.in);
         int series_number;
         try {
-            System.out.print(Black + "Enter Book series number to Edit Records: ");
+            System.out.print(Black + "Enter Book series number : ");
             series_number = sc.nextInt();
         } catch (InputMismatchException e) {
             System.out.println(Red + "Please enter number only!");
@@ -373,6 +373,8 @@ public class AdminPortal {
         breaker();
         int seriesNumber;
         String answer;
+        System.out.println(Green + "Displaying All Books Present in Database!");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         try {
             String query = "Select * from bookdetails";
             ResultSet resultSet = st.executeQuery(query);
@@ -388,7 +390,7 @@ public class AdminPortal {
             seriesNumber = userSeriesNumber();
             if (isSeriesNumberPresent(seriesNumber)) {
                 System.out.println(Green + "Book with series number " + seriesNumber + " is present in the database!");
-                System.out.println(Black + "Do you really want to Delete Book using series number : " + seriesNumber);
+                System.out.print(Black + "Do you really want to Delete Book (Yes / No) : ");
                 answer = sc.next();
                 if(answer.equalsIgnoreCase("Yes"))
                 {
