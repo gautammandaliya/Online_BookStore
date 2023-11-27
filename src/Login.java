@@ -9,7 +9,7 @@ public class Login {
     //All variables declaration====================================================================================================================================
     String Red = "\u001B[31m";
     String Black = "\u001B[30m";
-    static String Green = "\u001B[32m";
+    String Green = "\u001B[32m";
     String username;
     String password;
     Connection con = null;
@@ -21,7 +21,7 @@ public class Login {
         Login ref = new Login();
         ref.createConnection();
         ref.breaker();
-        System.out.println(Green + "Welcome to Login Page!");
+        System.out.println(ref.Green + "Welcome to Login Page!");
         ref.authenticateUser();
         ref.closeConnection();
     }
@@ -69,7 +69,7 @@ public class Login {
                     //AdminPortal.Admin_main();
                 } else {
                     System.out.println(Green + "Welcome  " + username + " to Customer Portal!");
-                    CustomerPortal.Customer_main();
+                    //CustomerPortal.Customer_main();
                 }
             } else {
                 System.out.println(Red + "Username or Password doesn't exists in database! Please try again.");

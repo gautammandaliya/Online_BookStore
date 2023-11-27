@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     //All Variables Declaration====================================================================================================================================
     String Red = "\u001B[31m";
-    static String Black = "\u001B[30m";
+    String Black = "\u001B[30m";
     String Green = "\u001B[32m";
     int customer_preference;
 

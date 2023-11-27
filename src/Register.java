@@ -9,8 +9,8 @@ public class Register {
 
     //All variable declaration====================================================================================================================================
     String Red = "\u001B[31m";
-    static String Black = "\u001B[30m";
-    static String Green = "\u001B[32m";
+    String Black = "\u001B[30m";
+    String Green = "\u001B[32m";
     int customer_userID = 0;
     String customer_name;
     int customer_gender;
@@ -29,7 +29,7 @@ public class Register {
         Register ref = new Register();
         ref.createConnection();
         int customer_userID = ref.retrieveUserID();
-        System.out.println(Black + "Auto-generated UserID is " + customer_userID);
+        System.out.println(ref.Black + "Auto-generated UserID is " + customer_userID);
         ref.createRecord();
         ref.closeConnection();
     }
