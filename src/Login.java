@@ -66,9 +66,37 @@ public class Login {
             if (isUserValid(username, password)) {
                 if ("Gautam@123".equals(username) && "Qwertyuiop@123".equals(password)) {
                     System.out.println(Green + "Welcome " + username + " to Admin Portal!");
+                    /* ResultSet resultSet = null;
+                    try {
+                        String query = "Select userID from loginregister WHERE username = '" + username + "'";
+                        System.out.println(Green + query);
+                        resultSet = st.executeQuery(query);
+                        if (resultSet.next()) {
+                            int userID = resultSet.getInt("userID");
+                            System.out.println("Allocated User ID is : " + userID);
+                        } else {
+                            System.out.println("UserID not found in the database.");
+                        }
+                    } catch(NullPointerException e){
+                        System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
+                    } */
                     //AdminPortal.Admin_main();
                 } else {
                     System.out.println(Green + "Welcome  " + username + " to Customer Portal!");
+                    ResultSet resultSet = null;
+                    try {
+                        String query = "Select userID from loginregister WHERE username = '" + username + "'";
+                        System.out.println(Green + query);
+                        resultSet = st.executeQuery(query);
+                        if (resultSet.next()) {
+                            int userID = resultSet.getInt("userID");
+                            System.out.println("Allocated User ID is : " + userID);
+                        } else {
+                            System.out.println("UserID not found in the database.");
+                        }
+                    } catch(NullPointerException e){
+                        System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
+                    }
                     //CustomerPortal.Customer_main();
                 }
             } else {
