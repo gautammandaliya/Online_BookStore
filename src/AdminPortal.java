@@ -367,10 +367,12 @@ public class AdminPortal {
 
     //Delete Book Logic====================================================================================================================================
     public void deleteBook() throws SQLException {
+        Scanner sc = new Scanner(System.in);
         AdminPortal ref = new AdminPortal();
         createConnection();
         breaker();
         int seriesNumber;
+        String answer;
         try {
             String query = "Select * from bookdetails";
             ResultSet resultSet = st.executeQuery(query);
@@ -386,20 +388,30 @@ public class AdminPortal {
             seriesNumber = userSeriesNumber();
             if (isSeriesNumberPresent(seriesNumber)) {
                 System.out.println(Green + "Book with series number " + seriesNumber + " is present in the database!");
-                try {
-                    String deleteQuery = "Delete from bookdetails WHERE series_no = " + seriesNumber;
-                    int rowsAffected = st.executeUpdate(deleteQuery);
-                    if(rowsAffected > 0){
-                        System.out.println(Green + "Book Deleted Successfully!");
-                        breaker();
-                        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
-                        adminChoice();
-                    } else {
-                        System.out.println(Red + "Error : No book record found!");
-                        breaker();
+                System.out.println(Black + "Do you really want to Delete Book using series number : " + seriesNumber);
+                answer = sc.next();
+                if(answer.equalsIgnoreCase("Yes"))
+                {
+                    try {
+                        String deleteQuery = "Delete from bookdetails WHERE series_no = " + seriesNumber;
+                        int rowsAffected = st.executeUpdate(deleteQuery);
+                        if(rowsAffected > 0){
+                            System.out.println(Green + "Book Deleted Successfully!");
+                            breaker();
+                            System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
+                            adminChoice();
+                        } else {
+                            System.out.println(Red + "Error : No book record found!");
+                            breaker();
+                        }
+                    } catch (NullPointerException e) {
+                        System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
                     }
-                } catch (NullPointerException e) {
-                    System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
+                } else {
+                    System.out.println(Green + "Book Archived!");
+                    breaker();
+                    System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
+                    adminChoice();
                 }
             } else {
                 System.out.println(Red + "Book with series number " + seriesNumber + " is not present in the database!");
@@ -418,7 +430,7 @@ public class AdminPortal {
         Scanner sc = new Scanner(System.in);
         AdminPortal ref = new AdminPortal();
         String answer;
-        System.out.print(Black + "Do you really want to Delete Account (Yes / No) : ");
+        System.out.print(Black + "Do you really want to Logout (Yes / No) : ");
         answer = sc.next();
         if (answer.equalsIgnoreCase("Yes")){
             System.out.println(Green + "Successfully Navigated to Login Page!");
