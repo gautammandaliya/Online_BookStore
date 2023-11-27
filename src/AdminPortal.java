@@ -209,7 +209,7 @@ public class AdminPortal {
                 System.out.println(Black + "Author name : " + Green + resultSet.getString(3));
                 System.out.println(Black + "Quantity Left : " + Green + resultSet.getInt(4));
                 System.out.println(Black + "Price per book : " + Green + resultSet.getDouble(5));
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         } catch (NullPointerException e) {
             System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
@@ -229,7 +229,7 @@ public class AdminPortal {
                         System.out.println(Black + "Author name : " + Green + resultSet.getString(3));
                         System.out.println(Black + "Quantity Left : " + Green + resultSet.getInt(4));
                         System.out.println(Black + "Price per book : " + Green + resultSet.getDouble(5));
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         System.out.println("Edit Book Details");
                         ref.update_book_name();
                         ref.update_book_author();
@@ -377,7 +377,7 @@ public class AdminPortal {
             while (resultSet.next()) {
                 System.out.println(Black + "Book Series number : " + Green + resultSet.getInt(1));
                 System.out.println(Black + "Book name : " + Green + resultSet.getString(2));
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         } catch (NullPointerException e) {
             System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");

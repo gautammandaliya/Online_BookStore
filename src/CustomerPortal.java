@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.spi.AbstractResourceBundleProvider;
 
 public class CustomerPortal {
     //All variables declaration
@@ -15,6 +16,7 @@ public class CustomerPortal {
     public static void main(String[] args) throws SQLException{
         CustomerPortal ref = new CustomerPortal();
         ref.createConnection();
+        ref.breaker();
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
         ref.customerChoice();
     }
@@ -85,6 +87,7 @@ public class CustomerPortal {
     public void allBooks() throws SQLException {
         CustomerPortal ref = new CustomerPortal();
         System.out.println(Green + "Displaying All Books Present in Database!");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         try {
             String query = "Select * from bookdetails";
             ResultSet resultSet = st.executeQuery(query);
@@ -94,7 +97,7 @@ public class CustomerPortal {
                 System.out.println(Black + "Author name : " + Green + resultSet.getString(3));
                 System.out.println(Black + "Quantity Left : " + Green + resultSet.getInt(4));
                 System.out.println(Black + "Price per book : " + Green + resultSet.getDouble(5));
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         } catch (NullPointerException e) {
             System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
@@ -107,6 +110,7 @@ public class CustomerPortal {
     //Search By Book name Option Logic====================================================================================================================================
     public void searchBookName() throws SQLException {
         System.out.println(Red + "Error 404 : Page Not Found");
+        breaker();
         CustomerPortal ref = new CustomerPortal();
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
         ref.customerChoice();
@@ -115,6 +119,7 @@ public class CustomerPortal {
     //Search By Author name Option Logic====================================================================================================================================
     public void searchAuthorName() throws SQLException {
         System.out.println(Red + "Error 404 : Page Not Found");
+        breaker();
         CustomerPortal ref = new CustomerPortal();
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
         ref.customerChoice();
@@ -123,6 +128,7 @@ public class CustomerPortal {
     //Cart Option Logic====================================================================================================================================
     public void cart() throws SQLException {
         System.out.println(Red + "Error 404 : Page Not Found");
+        breaker();
         CustomerPortal ref = new CustomerPortal();
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
         ref.customerChoice();
@@ -131,6 +137,7 @@ public class CustomerPortal {
     //Previous Orders Option Logic====================================================================================================================================
     public void previousOrders() throws SQLException {
         System.out.println(Red + "Error 404 : Page Not Found");
+        breaker();
         CustomerPortal ref = new CustomerPortal();
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
         ref.customerChoice();
@@ -139,6 +146,7 @@ public class CustomerPortal {
     //Sign-out Option Logic====================================================================================================================================
     public void signout() throws SQLException {
         System.out.println(Red + "Error 404 : Page Not Found");
+        breaker();
         CustomerPortal ref = new CustomerPortal();
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
         ref.customerChoice();
@@ -146,42 +154,54 @@ public class CustomerPortal {
 
     //Delete Account Option Logic====================================================================================================================================
     public void deleteAccount() throws SQLException {
+        Scanner sc = new Scanner(System.in);
         CustomerPortal ref = new CustomerPortal();
-        int userID;
-        try {
-            String query = "Select * from loginregister";
-            ResultSet resultSet = st.executeQuery(query);
-        } catch (NullPointerException e) {
-            System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
-        }
-        try {
-            userID = userID();
-            if (isUserIDPresent(userID)) {
-                System.out.println(Green + "User with userID " + userID + " is present in the database!");
-                try {
-                    String deleteQuery = "Delete from loginregister WHERE userID = " + userID;
-                    int rowsAffected = st.executeUpdate(deleteQuery);
-                    if(rowsAffected > 0){
-                        System.out.println(Green + "Account Deleted Successfully!");
-                        breaker();
-                        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
-                        ref.customerChoice();
-                    } else {
-                        System.out.println(Red + "Error : No user record found!");
-                        breaker();
-                    }
-                } catch (NullPointerException e) {
-                    System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
-                }
-            } else {
-                System.out.println(Red + "User with userID " + userID + " is not present in the database!");
-                breaker();
-                System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
-                ref.customerChoice();
+        String answer;
+        System.out.print(Black + "Do you really want to Delete Account (Yes / No) : ");
+        answer = sc.next();
+        if(answer.equalsIgnoreCase("Yes"))
+        {
+            int userID;
+            try {
+                String query = "Select * from loginregister";
+                ResultSet resultSet = st.executeQuery(query);
+            } catch (NullPointerException e) {
+                System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
             }
-        } catch (SQLException e) {
-            System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
-            e.printStackTrace();
+            try {
+                userID = userID();
+                if (isUserIDPresent(userID)) {
+                    System.out.println(Green + "User with userID " + userID + " is present in the database!");
+                    try {
+                        String deleteQuery = "Delete from loginregister WHERE userID = " + userID;
+                        int rowsAffected = st.executeUpdate(deleteQuery);
+                        if(rowsAffected > 0){
+                            System.out.println(Green + "Account Deleted Successfully!");
+                            breaker();
+                            System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+                            ref.customerChoice();
+                        } else {
+                            System.out.println(Red + "Error : No user record found!");
+                            breaker();
+                        }
+                    } catch (NullPointerException e) {
+                        System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
+                    }
+                } else {
+                    System.out.println(Red + "User with userID " + userID + " is not present in the database!");
+                    breaker();
+                    System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+                    ref.customerChoice();
+                }
+            } catch (SQLException e) {
+                System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println(Green + "Account Archived!");
+            breaker();
+            System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+            ref.customerChoice();
         }
     }
     //Asking for userID for updating and deleting records and checking in database====================================================================================================================================
@@ -189,11 +209,11 @@ public class CustomerPortal {
         Scanner sc = new Scanner(System.in);
         int userID;
         try {
-            System.out.print(Black + "Enter userID number to Delete Account: ");
-            userID = sc.nextInt();
-        } catch (InputMismatchException e) {
+            System.out.print(Black + "Enter allocated userID to Delete Account: ");
+            String input = sc.nextLine();
+            userID = Integer.parseInt(input.trim());
+        } catch (NumberFormatException e) {
             System.out.println(Red + "Please enter number only!");
-            sc.nextLine();
             return userID();
         }
         return userID;
