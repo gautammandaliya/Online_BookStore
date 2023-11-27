@@ -17,7 +17,7 @@ public class CustomerPortal {
         CustomerPortal ref = new CustomerPortal();
         ref.createConnection();
         ref.breaker();
-        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
     }
 
@@ -52,7 +52,7 @@ public class CustomerPortal {
             String input = sc.nextLine().trim();
             if (input.length() == 1 && Character.isDigit(input.charAt(0))) {
                 choice = Integer.parseInt(input);
-                if (choice >= 1 && choice <= 7) {
+                if (choice >= 1 && choice <= 8) {
                     breaker();
                     if (choice == 1) {
                         allBooks();
@@ -66,7 +66,9 @@ public class CustomerPortal {
                         previousOrders();
                     } else if (choice == 6) {
                         signout();
-                    } else {
+                    } else if(choice == 7){
+                        personalDetails();
+                    }else {
                         deleteAccount();
                     }
                 } else {
@@ -103,7 +105,7 @@ public class CustomerPortal {
             System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
         }
         breaker();
-        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
     }
 
@@ -112,7 +114,7 @@ public class CustomerPortal {
         System.out.println(Red + "Error 404 : Page Not Found");
         breaker();
         CustomerPortal ref = new CustomerPortal();
-        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
     }
 
@@ -121,7 +123,7 @@ public class CustomerPortal {
         System.out.println(Red + "Error 404 : Page Not Found");
         breaker();
         CustomerPortal ref = new CustomerPortal();
-        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
     }
 
@@ -130,7 +132,7 @@ public class CustomerPortal {
         System.out.println(Red + "Error 404 : Page Not Found");
         breaker();
         CustomerPortal ref = new CustomerPortal();
-        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
     }
 
@@ -139,7 +141,7 @@ public class CustomerPortal {
         System.out.println(Red + "Error 404 : Page Not Found");
         breaker();
         CustomerPortal ref = new CustomerPortal();
-        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
     }
 
@@ -148,8 +150,44 @@ public class CustomerPortal {
         System.out.println(Red + "Error 404 : Page Not Found");
         breaker();
         CustomerPortal ref = new CustomerPortal();
-        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
+    }
+
+    //Personal Details Option Logic====================================================================================================================================
+    public void personalDetails() throws SQLException {
+        CustomerPortal ref = new CustomerPortal();
+        Login ref1 = new Login();
+        int personalUserId = ref1.userID;
+        try {
+            String query = "Select * from loginregister where userID = " + 4;
+            ResultSet resultSet = st.executeQuery(query);
+            while (resultSet.next()) {
+                System.out.println(Green + "Customer Personal Details");
+                System.out.println(Black + "User-ID : " + Green + resultSet.getInt(1));
+                System.out.println(Black + "Customer Name : " + Green + resultSet.getString(2));
+                int genderCode = resultSet.getInt(3);
+                String gender = genderMatching(genderCode);
+                System.out.println(Black + "Gender : " + Green + gender);
+                System.out.println(Black + "Address : " + Green + resultSet.getString(4));
+                System.out.println(Black + "Mobile Number : " + Green + resultSet.getLong(5));
+                System.out.println(Black + "Username : " + Green + resultSet.getString(6));
+                System.out.println(Black + "Email-ID : " + Green + resultSet.getString(7));
+                breaker();
+               }
+        } catch (NullPointerException e) {
+            System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
+        }
+        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
+        ref.customerChoice();
+    }
+    public String genderMatching(int genderCode) throws SQLException{
+        switch (genderCode){
+            case 1 : return "Male";
+            case 2 : return "Female";
+            case 3 : return "Can't Disclose";
+            default : return "Unknown Gender";
+        }
     }
 
     //Delete Account Option Logic====================================================================================================================================
@@ -178,7 +216,7 @@ public class CustomerPortal {
                         if(rowsAffected > 0){
                             System.out.println(Green + "Account Deleted Successfully!");
                             breaker();
-                            System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+                            System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
                             ref.customerChoice();
                         } else {
                             System.out.println(Red + "Error : No user record found!");
@@ -190,7 +228,7 @@ public class CustomerPortal {
                 } else {
                     System.out.println(Red + "User with userID " + userID + " is not present in the database!");
                     breaker();
-                    System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+                    System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
                     ref.customerChoice();
                 }
             } catch (SQLException e) {
@@ -200,7 +238,7 @@ public class CustomerPortal {
         } else {
             System.out.println(Green + "Account Archived!");
             breaker();
-            System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Delete Account");
+            System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
             ref.customerChoice();
         }
     }

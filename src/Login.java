@@ -12,6 +12,7 @@ public class Login {
     String Green = "\u001B[32m";
     String username;
     String password;
+    int userID;
     Connection con = null;
     Statement st = null;
 
@@ -89,7 +90,7 @@ public class Login {
                         System.out.println(Green + query);
                         resultSet = st.executeQuery(query);
                         if (resultSet.next()) {
-                            int userID = resultSet.getInt("userID");
+                            userID = resultSet.getInt("userID");
                             System.out.println("Allocated User ID is : " + userID);
                         } else {
                             System.out.println("UserID not found in the database.");
