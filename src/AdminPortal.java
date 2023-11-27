@@ -415,10 +415,18 @@ public class AdminPortal {
 
     //Logout method and Back to Login page Logic====================================================================================================================================
     public void logout() throws SQLException {
-        System.out.println(Red + "Error 404 : Page Not Found");
+        Scanner sc = new Scanner(System.in);
         AdminPortal ref = new AdminPortal();
-        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
-        adminChoice();
-       //Login.Login_main();
+        String answer;
+        System.out.print(Black + "Do you really want to Delete Account (Yes / No) : ");
+        answer = sc.next();
+        if (answer.equalsIgnoreCase("Yes")){
+            System.out.println(Green + "Successfully Navigated to Login Page!");
+            //Login.Login_main();
+            breaker();
+        } else {
+            System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
+            adminChoice();
+        }
     }
 }
