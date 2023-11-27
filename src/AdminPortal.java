@@ -19,7 +19,7 @@ public class AdminPortal {
     public static void main(String[] args) throws SQLException {
         AdminPortal ref = new AdminPortal();
         ref.createConnection();
-        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3.Total Book Details\n4. Delete Book\n5. Logout");
+        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
         ref.adminChoice();
     }
 
@@ -29,7 +29,7 @@ public class AdminPortal {
     }
 
     //JDBC Connection with MySQL Logic====================================================================================================================================
-    public void createConnection() {
+    public void createConnection() throws SQLException{
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/online_book_store", "root", "XLZ5*YdZO991RUkm");
             st = con.createStatement();
@@ -76,7 +76,7 @@ public class AdminPortal {
                 adminChoice();
             }
         } catch (NumberFormatException e) {
-            System.out.println(Red + "Please enter valid series number!");
+            System.out.println(Red + "Please enter a valid choice!");
             adminChoice();
         }
     }
@@ -102,11 +102,11 @@ public class AdminPortal {
             System.out.println(Green + createRecordQuery);
             st.execute(createRecordQuery);
             System.out.println(Green + "Book Added Successfully");
-            System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3.Total Book Details\n4. Delete Book\n5. Logout");
+            System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
             adminChoice();
         } catch (NullPointerException e) {
             System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
-            System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3.Total Book Details\n4. Delete Book\n5. Logout");
+            System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
             adminChoice();
         }
     }
@@ -250,7 +250,7 @@ public class AdminPortal {
                             st.execute(updateRecordQuery4);
                             breaker();
                             System.out.println(Green + "Book Updated Successfully");
-                            System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3.Total Book Details\n4. Delete Book\n5. Logout");
+                            System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
                             adminChoice();
                         } catch (NullPointerException e) {
                             System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
@@ -262,7 +262,7 @@ public class AdminPortal {
             } else {
                 System.out.println(Red + "Book with series number " + seriesNumber + " is not present in the database!");
                 breaker();
-                System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3.Total Book Details\n4. Delete Book\n5. Logout");
+                System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
                 adminChoice();
             }
         } catch (SQLException e) {
@@ -359,9 +359,9 @@ public class AdminPortal {
 
     //Total Book Details Logic====================================================================================================================================
     public void totalBooks() throws SQLException {
-        System.out.println(Red + "404 : Page Not Found");
+        System.out.println(Red + "Error 404 : Page Not Found");
         AdminPortal ref = new AdminPortal();
-        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3.Total Book Details\n4. Delete Book\n5. Logout");
+        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
         adminChoice();
     }
 
@@ -392,7 +392,7 @@ public class AdminPortal {
                     if(rowsAffected > 0){
                         System.out.println(Green + "Book Deleted Successfully!");
                         breaker();
-                        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3.Total Book Details\n4. Delete Book\n5. Logout");
+                        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
                         adminChoice();
                     } else {
                         System.out.println(Red + "Error : No book record found!");
@@ -404,7 +404,7 @@ public class AdminPortal {
             } else {
                 System.out.println(Red + "Book with series number " + seriesNumber + " is not present in the database!");
                 breaker();
-                System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3.Total Book Details\n4. Delete Book\n5. Logout");
+                System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
                 adminChoice();
             }
         } catch (SQLException e) {
@@ -415,9 +415,9 @@ public class AdminPortal {
 
     //Logout method and Back to Login page Logic====================================================================================================================================
     public void logout() throws SQLException {
-        System.out.println(Red + "404 : Page Not Found");
+        System.out.println(Red + "Error 404 : Page Not Found");
         AdminPortal ref = new AdminPortal();
-        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3.Total Book Details\n4. Delete Book\n5. Logout");
+        System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
         adminChoice();
        //Login.Login_main();
     }
