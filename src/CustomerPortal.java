@@ -13,7 +13,7 @@ public class CustomerPortal {
 
     //Customer Portal Main Logic====================================================================================================================================
     //public static void Customer_main() throws SQLException
-    public static void main(String[] args) throws SQLException{
+    public static void main(String[] args) throws SQLException {
         CustomerPortal ref = new CustomerPortal();
         ref.createConnection();
         ref.breaker();
@@ -27,7 +27,7 @@ public class CustomerPortal {
     }
 
     //JDBC Connection with MySQL Logic====================================================================================================================================
-    public void createConnection() throws SQLException{
+    public void createConnection() throws SQLException {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/online_book_store", "root", "XLZ5*YdZO991RUkm");
             st = con.createStatement();
@@ -66,9 +66,9 @@ public class CustomerPortal {
                         previousOrders();
                     } else if (choice == 6) {
                         signout();
-                    } else if(choice == 7){
+                    } else if (choice == 7) {
                         personalDetails();
-                    }else {
+                    } else {
                         deleteAccount();
                     }
                 } else {
@@ -116,14 +116,14 @@ public class CustomerPortal {
         ref.createConnection();
         System.out.print(Black + "Enter Book name to search : ");
         String input = sc.nextLine().trim();
-        if(isValidInput(input)){
+        if (isValidInput(input)) {
             try {
                 String searchQuery = "Select * from bookdetails WHERE book_name LIKE '%" + input + "%'";
                 ResultSet resultSet = st.executeQuery(searchQuery);
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     System.out.println(Green + "Search results for book containing '" + input + "':");
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    do{
+                    do {
                         System.out.println(Black + "Book Series number: " + Green + resultSet.getInt(1));
                         System.out.println(Black + "Book name: " + Green + resultSet.getString(2));
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -131,7 +131,7 @@ public class CustomerPortal {
                 } else {
                     System.out.println(Red + "No matching book found!");
                 }
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
             }
         } else {
@@ -143,8 +143,9 @@ public class CustomerPortal {
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
     }
+
     //Input Validation Method for searching Logic====================================================================================================================================
-    public boolean isValidInput(String input){
+    public boolean isValidInput(String input) {
         return input.matches("[a-zA-Z0-9]+");
     }
 
@@ -155,14 +156,14 @@ public class CustomerPortal {
         ref.createConnection();
         System.out.print(Black + "Enter Author name to search : ");
         String input = sc.nextLine().trim();
-        if(isValidInput(input)){
+        if (isValidInput(input)) {
             try {
                 String searchQuery = "Select * from bookdetails WHERE book_author LIKE '%" + input + "%'";
                 ResultSet resultSet = st.executeQuery(searchQuery);
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     System.out.println(Green + "Search results for author containing '" + input + "':");
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    do{
+                    do {
                         System.out.println(Black + "Book Series number: " + Green + resultSet.getInt(1));
                         System.out.println(Black + "Book name: " + Green + resultSet.getString(2));
                         System.out.println(Black + "Author name: " + Green + resultSet.getString(3));
@@ -171,7 +172,7 @@ public class CustomerPortal {
                 } else {
                     System.out.println(Red + "No matching author found!");
                 }
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
             }
         } else {
@@ -207,9 +208,14 @@ public class CustomerPortal {
         Scanner sc = new Scanner(System.in);
         CustomerPortal ref = new CustomerPortal();
         String answer;
-        System.out.print(Black + "Do you really want to Sign-out (Yes / No) : ");
-        answer = sc.next();
-        if (answer.equalsIgnoreCase("Yes")){
+        do {
+            System.out.print(Black + "Do you really want to Sign-out (Yes / No) : ");
+            answer = sc.next();
+            if (!isValidAlphabeticInput(answer)) {
+                System.out.println(Red + "Invalid Input! Only Alphabets are Allowed!");
+            }
+        } while (!isValidAlphabeticInput(answer));
+        if (answer.equalsIgnoreCase("Yes")) {
             System.out.println(Green + "Successfully Navigated to Login Page!");
             //Login.Login_main();
             breaker();
@@ -219,6 +225,11 @@ public class CustomerPortal {
             ref.customerChoice();
         }
     }
+    //Input Validation Method for Sign-out and Delete Account Logic====================================================================================================================================
+    private boolean isValidAlphabeticInput(String input) {
+        return input.matches("[a-zA-z]+");
+    }
+
 
     //Personal Details Option Logic====================================================================================================================================
     public void personalDetails() throws SQLException {
@@ -240,19 +251,24 @@ public class CustomerPortal {
                 System.out.println(Black + "Username : " + Green + resultSet.getString(6));
                 System.out.println(Black + "Email-ID : " + Green + resultSet.getString(7));
                 breaker();
-               }
+            }
         } catch (NullPointerException e) {
             System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
         }
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
     }
-    public String genderMatching(int genderCode) throws SQLException{
-        switch (genderCode){
-            case 1 : return "Male";
-            case 2 : return "Female";
-            case 3 : return "Can't Disclose";
-            default : return "Unknown Gender";
+
+    public String genderMatching(int genderCode) throws SQLException {
+        switch (genderCode) {
+            case 1:
+                return "Male";
+            case 2:
+                return "Female";
+            case 3:
+                return "Can't Disclose";
+            default:
+                return "Unknown Gender";
         }
     }
 
@@ -261,10 +277,14 @@ public class CustomerPortal {
         Scanner sc = new Scanner(System.in);
         CustomerPortal ref = new CustomerPortal();
         String answer;
-        System.out.print(Black + "Do you really want to Delete Account (Yes / No) : ");
-        answer = sc.next();
-        if(answer.equalsIgnoreCase("Yes"))
-        {
+        do {
+            System.out.print(Black + "Do you really want to Delete Account (Yes / No) : ");
+            answer = sc.next();
+            if (!isValidAlphabeticInput(answer)) {
+                System.out.println(Red + "Invalid Input! Only Alphabets are Allowed!");
+            }
+        } while (!isValidAlphabeticInput(answer));
+        if (answer.equalsIgnoreCase("Yes")) {
             int userID;
             try {
                 String query = "Select * from loginregister";
@@ -279,7 +299,7 @@ public class CustomerPortal {
                     try {
                         String deleteQuery = "Delete from loginregister WHERE userID = " + userID;
                         int rowsAffected = st.executeUpdate(deleteQuery);
-                        if(rowsAffected > 0){
+                        if (rowsAffected > 0) {
                             System.out.println(Green + "Account Deleted Successfully!");
                             breaker();
                             System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
@@ -308,6 +328,7 @@ public class CustomerPortal {
             ref.customerChoice();
         }
     }
+
     //Asking for userID for updating and deleting records and checking in database====================================================================================================================================
     public int userID() throws SQLException {
         Scanner sc = new Scanner(System.in);
@@ -322,6 +343,7 @@ public class CustomerPortal {
         }
         return userID;
     }
+
     public boolean isUserIDPresent(int userID) throws SQLException {
         ResultSet resultSet = null;
         try {
@@ -329,7 +351,7 @@ public class CustomerPortal {
             System.out.println(Green + query);
             resultSet = st.executeQuery(query);
             return resultSet.next();
-        } catch(NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
         }
         return false;

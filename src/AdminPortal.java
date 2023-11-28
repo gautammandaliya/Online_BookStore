@@ -134,14 +134,22 @@ public class AdminPortal {
         Scanner sc = new Scanner(System.in);
         try {
             System.out.print(Black + "Enter Book name : ");
-            book_name = sc.nextLine();
-            if (Objects.equals(book_name, "")) {
+            book_name = sc.nextLine().trim();
+            if(isValidAlphabeticNumberInput(book_name)){
+            } else if(Objects.equals(book_name, "")){
                 System.out.println(Red + "Book name cannot be empty!");
+                book_author();
+            } else {
+                System.out.println(Red + "Invalid Input! Only Alphabets and numbers are allowed!");
                 book_name();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    //Input Validation Method for Book name Logic====================================================================================================================================
+    private boolean isValidAlphabeticNumberInput(String input){
+        return input.matches("[a-zA-Z0-9 ]+");
     }
 
     public void book_author() {
@@ -149,13 +157,22 @@ public class AdminPortal {
         try {
             System.out.print(Black + "Enter Author name : ");
             book_author = sc.nextLine();
-            if (Objects.equals(book_author, "")) {
+            if(isValidAlpabeticAuthorInput(book_author)){
+            } else if(Objects.equals(book_author, "")){
                 System.out.println(Red + "Author name cannot be empty!");
+                book_author();
+            } else {
+                System.out.println(Red + "Invalid Input! Only Alphabets and numbers are allowed!");
                 book_author();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //Input Validation Method for Author name Logic====================================================================================================================================
+    private boolean isValidAlpabeticAuthorInput(String input){
+        return input.matches("[a-zA-Z ]+");
     }
 
     public void quantity() {
@@ -180,11 +197,20 @@ public class AdminPortal {
         Scanner sc = new Scanner(System.in);
         try {
             System.out.print(Black + "Enter Price : ");
-            price = sc.nextDouble();
+            String input = sc.nextLine().trim();
+            if (isValidPrice(input)) {
+                price = Double.parseDouble(input);
+            } else {
+                System.out.println(Red + "Invalid input! Please enter a valid number or decimal value.");
+                price();
+            }
         } catch (InputMismatchException e) {
             System.out.println(Red + "Invalid Price!");
             price();
         }
+    }
+    private boolean isValidPrice(String input){
+        return input.matches("\\d+(\\.\\d+)?");
     }
 
     //Editing Book Option Logic====================================================================================================================================
@@ -390,8 +416,13 @@ public class AdminPortal {
             seriesNumber = userSeriesNumber();
             if (isSeriesNumberPresent(seriesNumber)) {
                 System.out.println(Green + "Book with series number " + seriesNumber + " is present in the database!");
-                System.out.print(Black + "Do you really want to Delete Book (Yes / No) : ");
-                answer = sc.next();
+                do {
+                    System.out.print(Black + "Do you really want to Delete Book (Yes / No) : ");
+                    answer = sc.next().trim();
+                    if (!isValidAlpabeticInput(answer)) {
+                        System.out.println(Red + "Invalid Input! Only Alphabets are Allowed!");
+                    }
+                } while (!isValidAlpabeticInput(answer));
                 if(answer.equalsIgnoreCase("Yes"))
                 {
                     try {
@@ -432,8 +463,13 @@ public class AdminPortal {
         Scanner sc = new Scanner(System.in);
         AdminPortal ref = new AdminPortal();
         String answer;
-        System.out.print(Black + "Do you really want to Logout (Yes / No) : ");
-        answer = sc.next();
+        do {
+            System.out.print(Black + "Do you really want to Logout (Yes / No) : ");
+            answer = sc.next().trim();
+            if (!isValidAlpabeticInput(answer)) {
+                System.out.println(Red + "Invalid Input! Only Alphabets are Allowed!");
+            }
+        } while (!isValidAlpabeticInput(answer));
         if (answer.equalsIgnoreCase("Yes")){
             System.out.println(Green + "Successfully Navigated to Login Page!");
             //Login.Login_main();
@@ -442,5 +478,10 @@ public class AdminPortal {
             System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");
             adminChoice();
         }
+    }
+
+    //Input Validation Method for Logout and Delete Book Logic====================================================================================================================================
+    private boolean isValidAlpabeticInput(String input){
+        return input.matches("[a-zA-Z]+");
     }
 }
