@@ -111,18 +111,75 @@ public class CustomerPortal {
 
     //Search By Book name Option Logic====================================================================================================================================
     public void searchBookName() throws SQLException {
-        System.out.println(Red + "Error 404 : Page Not Found");
-        breaker();
+        Scanner sc = new Scanner(System.in);
         CustomerPortal ref = new CustomerPortal();
+        ref.createConnection();
+        System.out.print(Black + "Enter Book name to search : ");
+        String input = sc.nextLine().trim();
+        if(isValidInput(input)){
+            try {
+                String searchQuery = "Select * from bookdetails WHERE book_name LIKE '%" + input + "%'";
+                ResultSet resultSet = st.executeQuery(searchQuery);
+                if(resultSet.next()){
+                    System.out.println(Green + "Search results for book containing '" + input + "':");
+                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    do{
+                        System.out.println(Black + "Book Series number: " + Green + resultSet.getInt(1));
+                        System.out.println(Black + "Book name: " + Green + resultSet.getString(2));
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    } while (resultSet.next());
+                } else {
+                    System.out.println(Red + "No matching book found!");
+                }
+            } catch (NullPointerException e){
+                System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
+            }
+        } else {
+            System.out.println(Red + "Invalid Input! Only Alphabets and Numbers are Allowed!");
+            breaker();
+            ref.searchBookName();
+        }
+        breaker();
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
+    }
+    //Input Validation Method for searching Logic====================================================================================================================================
+    public boolean isValidInput(String input){
+        return input.matches("[a-zA-Z0-9]+");
     }
 
     //Search By Author name Option Logic====================================================================================================================================
     public void searchAuthorName() throws SQLException {
-        System.out.println(Red + "Error 404 : Page Not Found");
-        breaker();
+        Scanner sc = new Scanner(System.in);
         CustomerPortal ref = new CustomerPortal();
+        ref.createConnection();
+        System.out.print(Black + "Enter Author name to search : ");
+        String input = sc.nextLine().trim();
+        if(isValidInput(input)){
+            try {
+                String searchQuery = "Select * from bookdetails WHERE book_author LIKE '%" + input + "%'";
+                ResultSet resultSet = st.executeQuery(searchQuery);
+                if(resultSet.next()){
+                    System.out.println(Green + "Search results for author containing '" + input + "':");
+                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    do{
+                        System.out.println(Black + "Book Series number: " + Green + resultSet.getInt(1));
+                        System.out.println(Black + "Book name: " + Green + resultSet.getString(2));
+                        System.out.println(Black + "Author name: " + Green + resultSet.getString(3));
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    } while (resultSet.next());
+                } else {
+                    System.out.println(Red + "No matching author found!");
+                }
+            } catch (NullPointerException e){
+                System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
+            }
+        } else {
+            System.out.println(Red + "Invalid Input! Only Alphabets and Numbers are Allowed!");
+            breaker();
+            ref.searchAuthorName();
+        }
+        breaker();
         System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
         ref.customerChoice();
     }
@@ -147,11 +204,20 @@ public class CustomerPortal {
 
     //Sign-out Option Logic====================================================================================================================================
     public void signout() throws SQLException {
-        System.out.println(Red + "Error 404 : Page Not Found");
-        breaker();
+        Scanner sc = new Scanner(System.in);
         CustomerPortal ref = new CustomerPortal();
-        System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
-        ref.customerChoice();
+        String answer;
+        System.out.print(Black + "Do you really want to Sign-out (Yes / No) : ");
+        answer = sc.next();
+        if (answer.equalsIgnoreCase("Yes")){
+            System.out.println(Green + "Successfully Navigated to Login Page!");
+            //Login.Login_main();
+            breaker();
+        } else {
+            breaker();
+            System.out.println(ref.Black + "Select one Option :\n1. Display All Book\n2. Search by Book name\n3. Search by Author name\n4. Cart\n5. Previous Orders\n6. Sign-out\n7. Personal Details\n8. Delete Account");
+            ref.customerChoice();
+        }
     }
 
     //Personal Details Option Logic====================================================================================================================================
