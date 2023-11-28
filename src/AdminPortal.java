@@ -140,7 +140,7 @@ public class AdminPortal {
                 System.out.println(Red + "Book name cannot be empty!");
                 book_author();
             } else {
-                System.out.println(Red + "Invalid Input! Only Alphabets and numbers are allowed!");
+                System.out.println(Red + "Invalid Input! Only Alphabets and Numbers are allowed!");
                 book_name();
             }
         } catch (Exception e) {
@@ -162,7 +162,7 @@ public class AdminPortal {
                 System.out.println(Red + "Author name cannot be empty!");
                 book_author();
             } else {
-                System.out.println(Red + "Invalid Input! Only Alphabets and numbers are allowed!");
+                System.out.println(Red + "Invalid Input! Only Alphabets are allowed!");
                 book_author();
             }
         } catch (Exception e) {
@@ -331,8 +331,12 @@ public class AdminPortal {
         try {
             System.out.print(Black + "Enter New Book name : ");
             update_book_name = sc.nextLine();
-            if (Objects.equals(update_book_name, "")) {
+            if(isValidAlphabeticNumberInput(update_book_name)){
+            } else if (Objects.equals(update_book_name, "")) {
                 System.out.println(Red + "Book name cannot be empty!");
+                update_book_name();
+            } else {
+                System.out.println(Red + "Invalid Input! Only Alphabets and Numbers are allowed!");
                 update_book_name();
             }
         } catch (Exception e) {
@@ -345,8 +349,12 @@ public class AdminPortal {
         try {
             System.out.print(Black + "Enter New Author name : ");
             update_book_author = sc.nextLine();
-            if (Objects.equals(update_book_author, "")) {
+            if(isValidAlpabeticAuthorInput(update_book_author)){
+            } else if (Objects.equals(update_book_author, "")) {
                 System.out.println(Red + "Author name cannot be empty!");
+                update_book_author();
+            } else {
+                System.out.println(Red + "Invalid Input! Only Alphabets are allowed!");
                 update_book_author();
             }
         } catch (Exception e) {
@@ -376,7 +384,13 @@ public class AdminPortal {
         Scanner sc = new Scanner(System.in);
         try {
             System.out.print(Black + "Enter New Price : ");
-            update_price = sc.nextDouble();
+            String input = sc.nextLine().trim();
+            if (isValidPrice(input)) {
+                update_price = Double.parseDouble(input);
+            } else {
+                System.out.println(Red + "Invalid input! Please enter a valid number or decimal value.");
+                update_price();
+            }
         } catch (InputMismatchException e) {
             System.out.println(Red + "Invalid Price!");
             update_price();
