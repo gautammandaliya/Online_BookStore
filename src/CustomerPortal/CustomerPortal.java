@@ -1,7 +1,9 @@
+package CustomerPortal;
+
+import LoginPage.Login;
+
 import java.sql.*;
-import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.spi.AbstractResourceBundleProvider;
 
 public class CustomerPortal {
     //All variables declaration
@@ -216,8 +218,8 @@ public class CustomerPortal {
             }
         } while (!isValidAlphabeticInput(answer));
         if (answer.equalsIgnoreCase("Yes")) {
-            System.out.println(Green + "Successfully Navigated to Login Page!");
-            //Login.Login_main();
+            System.out.println(Green + "Successfully Navigated to LoginPage.Login Page!");
+            //LoginPage.Login.Login_main();
             breaker();
         } else {
             breaker();

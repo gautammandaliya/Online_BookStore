@@ -1,3 +1,5 @@
+package AdminPortal;
+
 import java.sql.*;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -472,7 +474,7 @@ public class AdminPortal {
         }
     }
 
-    //Logout method and Back to Login page Logic====================================================================================================================================
+    //Logout method and Back to LoginPage.Login page Logic====================================================================================================================================
     public void logout() throws SQLException {
         Scanner sc = new Scanner(System.in);
         AdminPortal ref = new AdminPortal();
@@ -485,8 +487,8 @@ public class AdminPortal {
             }
         } while (!isValidAlpabeticInput(answer));
         if (answer.equalsIgnoreCase("Yes")){
-            System.out.println(Green + "Successfully Navigated to Login Page!");
-            //Login.Login_main();
+            System.out.println(Green + "Successfully Navigated to LoginPage.Login Page!");
+            //LoginPage.Login.Login_main();
             breaker();
         } else {
             System.out.println(ref.Black + "Select one Option :\n1. Add New Book\n2. Edit Book Details\n3. Total Book Details\n4. Delete Book\n5. Logout");

@@ -22,8 +22,8 @@ public class Main {
 
     public void Customer_preference() throws SQLException {
         Scanner sc = new Scanner(System.in);
-        System.out.println(Black + "1. Existing User --> Login Here!");
-        System.out.println(Black + "2. New User --> Register Here!");
+        System.out.println(Black + "1. Existing User --> LoginPage.Login Here!");
+        System.out.println(Black + "2. New User --> RegisterPage.Register Here!");
         try {
             System.out.print(Black + "Enter your Choice : ");
             String input = sc.nextLine().trim();
@@ -32,9 +32,9 @@ public class Main {
                 if (customer_preference >= 1 && customer_preference <= 2) {
                     breaker();
                     if (customer_preference == 1) {
-                        //Login.Login_main();
+                        //LoginPage.Login.Login_main();
                     } else {
-                        //Register.Register_main();
+                        //RegisterPage.Register.Register_main();
                     }
                 } else {
                     System.out.println(Red + "Please enter a valid choice!");

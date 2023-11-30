@@ -1,3 +1,5 @@
+package LoginPage;
+
 import java.sql.*;
 import java.util.Objects;
 import java.util.Scanner;
@@ -16,18 +18,18 @@ public class Login {
     Connection con = null;
     Statement st = null;
 
-    //Login Main Logic====================================================================================================================================
+    //LoginPage.Login Main Logic====================================================================================================================================
     //public static void Login_main() throws SQLException {
     public static void main(String[] args) throws SQLException {
         Login ref = new Login();
         ref.createConnection();
         ref.breaker();
-        System.out.println(ref.Green + "Welcome to Login Page!");
+        System.out.println(ref.Green + "Welcome to LoginPage.Login Page!");
         ref.authenticateUser();
         ref.closeConnection();
     }
 
-    //Login Breaker Logic====================================================================================================================================
+    //LoginPage.Login Breaker Logic====================================================================================================================================
     public void breaker() {
         System.out.println(Red + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
@@ -43,7 +45,7 @@ public class Login {
         }
     }
 
-    //Closing Connection after Successful Login Logic====================================================================================================================================
+    //Closing Connection after Successful LoginPage.Login Logic====================================================================================================================================
     public void closeConnection() throws SQLException {
         try {
             if (st != null) {
@@ -81,7 +83,7 @@ public class Login {
                     } catch(NullPointerException e){
                         System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
                     } */
-                    //AdminPortal.Admin_main();
+                    //AdminPortal.AdminPortal.Admin_main();
                 } else {
                     System.out.println(Green + "Welcome  " + username + " to Customer Portal!");
                     ResultSet resultSet = null;
@@ -98,7 +100,7 @@ public class Login {
                     } catch(NullPointerException e){
                         System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
                     }
-                    //CustomerPortal.Customer_main();
+                    //CustomerPortal.CustomerPortal.Customer_main();
                 }
             } else {
                 System.out.println(Red + "Username or Password doesn't exists in database! Please try again.");
@@ -125,7 +127,7 @@ public class Login {
         return input.replace("'", "''");
     }
 
-    //Login Username and Validation Logic====================================================================================================================================
+    //LoginPage.Login Username and Validation Logic====================================================================================================================================
     public void getUsername() {
         Scanner sc = new Scanner(System.in);
         System.out.print(Black + "Enter Username : ");
@@ -152,7 +154,7 @@ public class Login {
         return matcher.matches();
     }
 
-    //Login Password and Validation Logic====================================================================================================================================
+    //LoginPage.Login Password and Validation Logic====================================================================================================================================
     public void getPassword() {
         Scanner sc = new Scanner(System.in);
         boolean isValidPassword = false;
