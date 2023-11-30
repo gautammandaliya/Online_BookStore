@@ -15,26 +15,27 @@ public class Main {
         ref.Customer_preference();
     }
 
-    //Main class Breaker Logic====================================================================================================================================
+    //Main Breaker Logic====================================================================================================================================
     public void breaker() {
         System.out.println(Red + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 
     public void Customer_preference() throws SQLException {
         Scanner sc = new Scanner(System.in);
-        System.out.println(Black + "1. Existing User --> LoginPage.Login Here!");
-        System.out.println(Black + "2. New User --> RegisterPage.Register Here!");
+        System.out.println(Black + "1. Existing User --> Login Here!");
+        System.out.println(Black + "2. New User --> Register Here!");
         try {
             System.out.print(Black + "Enter your Choice : ");
             String input = sc.nextLine().trim();
             if (input.length() == 1 && Character.isDigit(input.charAt(0))) {
                 customer_preference = Integer.parseInt(input);
                 if (customer_preference >= 1 && customer_preference <= 2) {
-                    breaker();
+                    Main ref = new Main();
+                    ref.breaker();
                     if (customer_preference == 1) {
-                        //LoginPage.Login.Login_main();
+                        //Login.Login_main();
                     } else {
-                        //RegisterPage.Register.Register_main();
+                        //Register.Register_main();
                     }
                 } else {
                     System.out.println(Red + "Please enter a valid choice!");

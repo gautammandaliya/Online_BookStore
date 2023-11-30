@@ -1,5 +1,3 @@
-package RegisterPage;
-
 import java.sql.*;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -25,7 +23,7 @@ public class Register {
     Connection con = null;
     Statement st = null;
 
-    //RegisterPage.Register Main Logic====================================================================================================================================
+    //Register Main Logic====================================================================================================================================
     //public static void Register_main() throws SQLException {
     public static void main(String[] args) throws SQLException {
         Register ref = new Register();
@@ -36,7 +34,7 @@ public class Register {
         ref.closeConnection();
     }
 
-    //RegisterPage.Register Breaker Logic====================================================================================================================================
+    //Register Breaker Logic====================================================================================================================================
     public void breaker() {
         System.out.println(Red + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
@@ -88,7 +86,7 @@ public class Register {
             System.out.println(Green + createRecordQuery);
             st.execute(createRecordQuery);
             System.out.println(Green + "Registration Record Captured!");
-            //LoginPage.Login.Login_main();
+            //Login.Login_main();
         } catch (NullPointerException e) {
             System.out.println(Red + "Please connect to MySQL Server Localhost and proceed further...");
         }
@@ -140,7 +138,7 @@ public class Register {
         con.close();
     }
 
-    //RegisterPage.Register Name and Validation Logic====================================================================================================================================
+    //Register Name and Validation Logic====================================================================================================================================
     public void customer_name() {
         Scanner sc = new Scanner(System.in);
         System.out.print(Black + "Enter Name (Firstname Lastname) : ");
@@ -165,7 +163,7 @@ public class Register {
         return matcher.matches() && !name.matches(".*\\d.*") && name.split("\\s").length == 2;
     }
 
-    //RegisterPage.Register Gender Logic====================================================================================================================================
+    //Register Gender Logic====================================================================================================================================
     public void customer_gender() {
         Scanner sc = new Scanner(System.in);
         System.out.println(Black + "Gender Options : 1.Male 2.Female 3.Can't Disclose");
@@ -188,7 +186,7 @@ public class Register {
         }
     }
 
-    //RegisterPage.Register Address Logic====================================================================================================================================
+    //Register Address Logic====================================================================================================================================
     public void customer_address() {
         Scanner sc = new Scanner(System.in);
         System.out.print(Black + "Enter your Address : ");
@@ -202,7 +200,7 @@ public class Register {
         }
     }
 
-    //RegisterPage.Register Mobile Number and Validation Logic====================================================================================================================================
+    //Register Mobile Number and Validation Logic====================================================================================================================================
     public void customer_mobileNumber() {
         Scanner sc = new Scanner(System.in);
         try {
@@ -228,7 +226,7 @@ public class Register {
         return matcher.matches();
     }
 
-    //RegisterPage.Register Username and Validation Logic====================================================================================================================================
+    //Register Username and Validation Logic====================================================================================================================================
     public void customer_username() {
         Scanner sc = new Scanner(System.in);
         System.out.print(Black + "Enter Username : ");
@@ -256,7 +254,7 @@ public class Register {
         return matcher.matches();
     }
 
-    //RegisterPage.Register Email-Id and validation Logic====================================================================================================================================
+    //Register Email-Id and validation Logic====================================================================================================================================
     public void customer_emailID() {
         Scanner sc = new Scanner(System.in);
         System.out.print(Black + "Enter Valid Email-ID : ");
@@ -291,7 +289,7 @@ public class Register {
         return matcher.matches();
     }
 
-    //RegisterPage.Register Create Password and Validation Logic====================================================================================================================================
+    //Register Create Password and Validation Logic====================================================================================================================================
     public void customer_createPassword() {
         Scanner sc = new Scanner(System.in);
         System.out.println(Black + "Password should be 8-character long with\n1. One Uppercase-Character\n2. One Lowercase-Character\n3. One Special-Character\n4. One Digit");
@@ -319,7 +317,7 @@ public class Register {
         return matcher.matches();
     }
 
-    //RegisterPage.Register Confirm Password and Validation Logic====================================================================================================================================
+    //Register Confirm Password and Validation Logic====================================================================================================================================
     public void customer_confirmPassword() throws SQLException {
         Scanner sc = new Scanner(System.in);
         do {
